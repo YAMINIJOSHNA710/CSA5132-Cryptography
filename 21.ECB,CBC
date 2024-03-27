@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BLOCK_SIZE 8
+#define MESSAGE_SIZE 16
+void encrypt_ecb(unsigned char *plaintext, unsigned char *key, unsigned char *ciphertext) {
+}
+void decrypt_ecb(unsigned char *ciphertext, unsigned char *key, unsigned char *plaintext) {
+}
+void encrypt_cbc(unsigned char *plaintext, unsigned char *key, unsigned char *iv, unsigned char *ciphertext) {
+}
+void decrypt_cbc(unsigned char *ciphertext, unsigned char *key, unsigned char *iv, unsigned char *plaintext) {
+}
+void encrypt_cfb(unsigned char *plaintext, unsigned char *key, unsigned char *iv, unsigned char *ciphertext) {
+}
+void decrypt_cfb(unsigned char *ciphertext, unsigned char *key, unsigned char *iv, unsigned char *plaintext) {
+}
+
+int main() {
+    unsigned char key[8] = "12345678";
+    unsigned char iv[8] = "ABCDEFGH";
+    unsigned char plaintext[MESSAGE_SIZE] = "Hello World";
+    unsigned char ciphertext[MESSAGE_SIZE];
+    int padding_len = BLOCK_SIZE - (MESSAGE_SIZE % BLOCK_SIZE);
+    if (padding_len != BLOCK_SIZE) {
+        memset(plaintext + MESSAGE_SIZE, 0, padding_len);
+    }
+    encrypt_ecb(plaintext, key, ciphertext);
+    printf("ECB Encrypted: ");
+    int i;
+    for (i = 0; i < MESSAGE_SIZE; i++) {
+        printf("%02X ", ciphertext[i]);
+    }
+    printf("\n");
+    unsigned char decrypted_ecb[MESSAGE_SIZE];
+    decrypt_ecb(ciphertext, key, decrypted_ecb);
+    printf("ECB Decrypted: %s\n", decrypted_ecb);
+    encrypt_cbc(plaintext, key, iv, ciphertext);
+    printf("CBC Encrypted: ");
+    for (i = 0; i < MESSAGE_SIZE; i++) {
+        printf("%02X ", ciphertext[i]);
+    }
+    printf("\n");
+    unsigned char decrypted_cbc[MESSAGE_SIZE];
+    decrypt_cbc(ciphertext, key, iv, decrypted_cbc);
+    printf("CBC Decrypted: %s\n", decrypted_cbc);
+    encrypt_cfb(plaintext, key, iv, ciphertext);
+    printf("CFB Encrypted: ");
+    for (i = 0; i < MESSAGE_SIZE; i++) {
+        printf("%02X ", ciphertext[i]);
+    }
+    printf("\n");
+    unsigned char decrypted_cfb[MESSAGE_SIZE];
+    decrypt_cfb(ciphertext, key, iv, decrypted_cfb);
+    printf("CFB Decrypted: %s\n", decrypted_cfb);
+
+    return 0;
+}
