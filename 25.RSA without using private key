@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+// Function to perform RSA encryption
+unsigned long long rsa_encrypt(unsigned long long plaintext, unsigned long long n, unsigned long long e) {
+    unsigned long long ciphertext = 1;
+    for (unsigned long long i = 0; i < e; ++i) {
+        ciphertext = (ciphertext * plaintext) % n;
+    }
+    return ciphertext;
+}
+
+int main() {
+    unsigned long long n = 123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901;
+    unsigned long long e = 65537;
+    unsigned long long plaintext = 1234567890123456789012345678901234567890123456789012345678901234;
+
+    // Perform RSA encryption
+    unsigned long long ciphertext = rsa_encrypt(plaintext, n, e);
+
+    // Output the ciphertext
+    printf("Ciphertext: %llu\n", ciphertext);
+
+    return 0;
+}
